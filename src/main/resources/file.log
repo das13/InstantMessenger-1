@@ -1,0 +1,21 @@
+2016-09-13 00:07:13 INFO Controller.Controller: - Cont
+2016-09-13 00:40:37 INFO Controller.StartProgram: - Start program.
+2016-09-13 00:40:37 INFO Controller.StartProgram: - Model created.
+2016-09-13 00:40:38 INFO View.ManageViewElements: - View created.
+2016-09-13 00:40:38 INFO Controller.StartProgram: - View created.
+2016-09-13 00:40:38 INFO Controller.Controller: - NewUserButtonListener added.
+2016-09-13 00:40:38 INFO Controller.Controller: - SendButtonListener added.
+2016-09-13 00:40:38 INFO Controller.Controller: - WindowsListener added.
+2016-09-13 00:40:38 INFO Controller.Controller: - Try to connect with server.
+2016-09-13 00:40:38 INFO Controller.Controller: - Successfully.
+2016-09-13 00:40:38 INFO Controller.Controller: - Controller created.
+2016-09-13 00:40:38 INFO Controller.StartProgram: - Controller created.
+2016-09-13 00:40:38 INFO Controller.WindowsListener: - Window opened.
+2016-09-13 00:40:38 INFO Controller.NewUserWindowsListener: - Window opened.
+2016-09-13 00:40:42 INFO Controller.AddNewUserButtonListener: - Add new user Jbutton pressed.
+2016-09-13 00:40:42 INFO Controller.AddNewUserButtonListener: - Try to send user.
+2016-09-13 00:40:42 INFO Model.User: - User created
+2016-09-13 00:40:42 INFO Model.Transfer: - Transfer send message
+2016-09-13 00:40:42 INFO Model.User: - User toString used.
+2016-09-13 00:40:43 INFO Controller.NewUserWindowsListener: - Window closing.
+2016-09-13 00:40:45 INFO Controller.WindowsListener: - Window closing.
