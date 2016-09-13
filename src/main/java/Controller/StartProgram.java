@@ -12,17 +12,13 @@ public class StartProgram {
 
         LOG.info("Start program.");
 
-
         Model model = new Model();
-
         LOG.info("Model created.");
 
         View view = new View();
-
         LOG.info("View created.");
 
         Controller controller = new Controller(view, model);
-
         LOG.info("Controller created.");
     }
 }
