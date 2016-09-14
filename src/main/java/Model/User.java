@@ -12,7 +12,6 @@ public class User {
 
     private String user_Name;
 
-
     public User(String user_Name) {
         this.user_Name = user_Name;
         LOG.info("User created");
@@ -28,6 +27,6 @@ public class User {
 
     public String toString(){
         LOG.info("User toString used.");
-        return "<data><command>4</command><name>"+user_Name+"name></data>";
+        return "<?xml version=\"1.0\" encoding=\"utf-8\"?><data><command>4</command><message></message><user>"+ user_Name +"</user></data>";
     }
 }

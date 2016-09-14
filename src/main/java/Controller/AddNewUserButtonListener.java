@@ -30,9 +30,13 @@ public class AddNewUserButtonListener implements ActionListener {
         try {
             LOG.info("Try to send user.");
             model.sendNewUserToServer(view.getUserName());
+            view.closeJFrame();
             LOG.info("Successfully.");
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+
+
+
     }
 }

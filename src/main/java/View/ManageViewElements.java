@@ -163,6 +163,24 @@ public class ManageViewElements extends JFrame {
         return nameOfUserJTextField.getText();
 
     }
+
+    public void closeJFrame(){
+        addNewUserJFrame.setVisible(false);
+    }
+
+    public void setListOfTask(ArrayList message) {
+
+        this.messegesModelOfTask.clear();
+
+        for (int i = 0; i < message.size(); i++){
+
+            messegesModelOfTask.addElement(message.get(i));
+        }
+
+
+    }
+
+
 }
 
 

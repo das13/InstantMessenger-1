@@ -38,6 +38,8 @@ public class Message implements Serializable {
     public String toString(){
         LOG.info("Message toString used.");
 
-        return "<data><command>5</command><user>"+ author.getUser_Name() +"</user><message>"+text+"</message></data>";
+        return "<?xml version=\"1.0\" encoding=\"utf-8\"?><data><command>5</command><message>"+ author.getUser_Name()+ ": " + text + "</message><user></user></data>";
     }
+
+
 }

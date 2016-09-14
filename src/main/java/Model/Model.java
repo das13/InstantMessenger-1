@@ -10,11 +10,11 @@ public class Model  {
 
     private static final Logger LOG = Logger.getLogger(Model.class);
 
-    private InputStream in;
-    private OutputStream out;
+    private ArrayList listOfMessage;
+    private ArrayList getListOfMessage;
 
-    private DataInputStream cin;
-    private DataOutputStream cout;
+    private DataOutputStream out;
+    private DataInputStream in;
 
     private ArrayList<Message> tempMessageList = new ArrayList<Message>();
     private ArrayList<String> tempUserList = new ArrayList<String>();
@@ -22,26 +22,22 @@ public class Model  {
 
     public void connectToServer() throws IOException{
 
-        Socket s = new Socket("localhost",3000);
+        Socket s = new Socket("localhost",4545);
 
-        this.in = s.getInputStream();
-        this.out = s.getOutputStream();
-
-        this.cin = new DataInputStream(in);
-        this.cout = new DataOutputStream(out);
-
+        out = new DataOutputStream(s.getOutputStream());
+        in = new DataInputStream(s.getInputStream());
     }
 
     public void sendMessageToServer(Message message) throws IOException{
 
-        Transfer.sendMessage(message,cin,cout);
+        Transfer.sendMessage(message,in,out);
     }
 
     public void sendNewUserToServer(String nameOfUser) throws IOException{
 
         User tempUser = new User(nameOfUser);
 
-        Transfer.sendNewUser(tempUser,cin,cout);
+        Transfer.sendNewUser(tempUser,in,out);
     }
 
 
@@ -53,6 +49,7 @@ public class Model  {
     public void expectUserListFromServer(DataInputStream cin, DataOutputStream cout) throws IOException{
         Transfer.getUserListFromServer(cin, cout);
     }
+
 
 
 
@@ -78,6 +75,14 @@ public class Model  {
         Message tempMessage = new Message(tempUser,message);
 
         return tempMessage;
+    }
+
+    public void addMessageToList(String message){
+        listOfMessage.add(message);
+    }
+
+    public void addUserToList(String user){
+        getListOfUsers().add(user);
     }
 
     public void closeStreams() throws IOException{
