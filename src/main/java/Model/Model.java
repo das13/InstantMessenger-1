@@ -1,5 +1,6 @@
 package Model;
 
+import View.View;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -17,7 +18,7 @@ public class Model  {
     private DataInputStream in;
 
     private ArrayList<Message> tempMessageList = new ArrayList<Message>();
-    private ArrayList<String> tempUserList = new ArrayList<String>();
+    private static ArrayList<String> tempUserList = new ArrayList<String>();
     private String thisUserName;
 
     public void connectToServer() throws IOException{
@@ -28,16 +29,16 @@ public class Model  {
         in = new DataInputStream(s.getInputStream());
     }
 
-    public void sendMessageToServer(Message message) throws IOException{
+    public void sendMessageToServer(Message message,View view) throws IOException{
 
-        Transfer.sendMessage(message,in,out);
+        Transfer.sendMessage(view,message,in,out);
     }
 
-    public void sendNewUserToServer(String nameOfUser) throws IOException{
+    public void sendNewUserToServer(String nameOfUser,View view) throws IOException{
 
         User tempUser = new User(nameOfUser);
 
-        Transfer.sendNewUser(tempUser,in,out);
+        Transfer.sendNewUser(view,tempUser,in,out);
     }
 
 
@@ -57,7 +58,7 @@ public class Model  {
         return tempMessageList;
     }
 
-    public ArrayList getListOfUsers(){
+    public static ArrayList getListOfUsers(){
         return tempUserList;
     }
 
@@ -81,7 +82,7 @@ public class Model  {
         listOfMessage.add(message);
     }
 
-    public void addUserToList(String user){
+    public static void addUserToList(String user){
         getListOfUsers().add(user);
     }
 

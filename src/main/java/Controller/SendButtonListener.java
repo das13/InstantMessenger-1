@@ -27,7 +27,7 @@ public class SendButtonListener implements ActionListener {
 
         try {
             LOG.info("Try to send message.");
-            model.sendMessageToServer(model.createMessage(view.getMessage(), model.getThisUserName()));
+            model.sendMessageToServer(model.createMessage(view.getMessage(), model.getThisUserName()),view);
             LOG.info("Successfully.");
         } catch (IOException e1) {
             e1.printStackTrace();

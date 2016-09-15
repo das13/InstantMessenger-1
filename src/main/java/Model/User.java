@@ -27,6 +27,14 @@ public class User {
 
     public String toString(){
         LOG.info("User toString used.");
-        return "<?xml version=\"1.0\" encoding=\"utf-8\"?><data><command>4</command><message></message><user>"+ user_Name +"</user></data>";
+
+        return "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+                "<data>" +
+                    "<values>" +
+                         "<id>"+ 4 +"</id>" +
+                         "<message></message>" +
+                          "<user>"+ user_Name +"</user>" +
+                    "</values>" +
+                "</data>";
     }
 }

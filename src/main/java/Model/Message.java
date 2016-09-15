@@ -38,7 +38,14 @@ public class Message implements Serializable {
     public String toString(){
         LOG.info("Message toString used.");
 
-        return "<?xml version=\"1.0\" encoding=\"utf-8\"?><data><command>5</command><message>"+ author.getUser_Name()+ ": " + text + "</message><user></user></data>";
+        return "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+                "<data>" +
+                    "<values>" +
+                        "<id>" + 5 + "</id>" +
+                        "<message>"+ author +": "+ text +"</message>" +
+                        "<user></user>" +
+                    "</values>" +
+                "</data>";
     }
 
 
