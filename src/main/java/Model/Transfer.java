@@ -49,10 +49,6 @@ public class Transfer {
 
         out.writeUTF(user.toString());
 
-
-
-
-
         try {
             DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
             f.setValidating(false);
@@ -70,8 +66,6 @@ public class Transfer {
 
             NodeList list = doc.getElementsByTagName("values");
 
-            System.out.println("before for");
-
             for (int i = 0; i < list.getLength(); i++){
 
                 Element element = (Element)list.item(i);
@@ -79,6 +73,17 @@ public class Transfer {
                 int id = Integer.parseInt(element.getElementsByTagName("id").item(0).getChildNodes().item(0).getNodeValue());
 
                 System.out.println("id - "+ id);
+
+
+                /*
+                *   id:
+                *
+                *   7 - get online users
+                *
+                *
+                *
+                *
+                * */
 
                 switch (id) {
 
@@ -104,9 +109,6 @@ public class Transfer {
                         String name = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
 
                         Model.addUserToList(name);
-
-
-
 
                         break;
 
