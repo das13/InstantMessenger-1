@@ -42,11 +42,9 @@ public class Message implements Serializable {
                 "<data>" +
                     "<values>" +
                         "<id>" + 5 + "</id>" +
-                        "<message>"+ author +": "+ text +"</message>" +
-                        "<user></user>" +
+                        "<message>"+text +"</message>" +
+                        "<user>"+ author.getUser_Name() +"</user>" +
                     "</values>" +
                 "</data>";
     }
-
-
 }

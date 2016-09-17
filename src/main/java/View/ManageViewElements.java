@@ -124,12 +124,18 @@ public class ManageViewElements extends JFrame {
             return;
         }
 
-        for (int i = 0; i < list.size() - 1; i++) {
+        for (int i = 0; i < list.size(); i++) {
             String tempMessage = list.get(i).toString();
             messegesModelOfTask.addElement(tempMessage);
         }
-        String tempMessage = list.get(list.size() - 1).toString();
-        messegesModelOfTask.addElement(tempMessage);
+    }
+
+    public String getMessage() {
+        return textOfMessageJTextField.getText();
+    }
+
+    public String getUserName() {
+        return nameOfUserJTextField.getText();
     }
 
     public void setUserList(ArrayList list) {
@@ -147,10 +153,6 @@ public class ManageViewElements extends JFrame {
         userModelOfTask.addElement(tempUser);
     }
 
-    public String getMessage() {
-        return textOfMessageJTextField.getText();
-    }
-
     public void setSendButtonListener(ActionListener event) {
         sendMessageJButton.addActionListener(event);
     }
@@ -159,28 +161,9 @@ public class ManageViewElements extends JFrame {
         addNewUserJButton.addActionListener(event);
     }
 
-    public String getUserName() {
-        return nameOfUserJTextField.getText();
-
-    }
-
     public void closeJFrame(){
         addNewUserJFrame.setVisible(false);
     }
-
-    public void setListOfTask(ArrayList message) {
-
-        this.messegesModelOfTask.clear();
-
-        for (int i = 0; i < message.size(); i++){
-
-            messegesModelOfTask.addElement(message.get(i));
-        }
-
-
-    }
-
-
 }
 
 

@@ -47,8 +47,4 @@ public class View {
     public void closeJFrame(){
         instantMessenger.closeJFrame();
     }
-
-    public void setListOfTask(ArrayList message){
-        instantMessenger.setListOfTask(message);
-    }
 }

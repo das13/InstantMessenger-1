@@ -24,8 +24,6 @@ public class Controller {
         addSendButtonListener();
         addWindowsListener();
 
-
-
         try {
             LOG.info("Try to connect with server.");
             model.connectToServer();

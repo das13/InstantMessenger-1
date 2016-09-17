@@ -2,7 +2,15 @@ package Model;
 
 import View.View;
 import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -11,15 +19,88 @@ public class Model  {
 
     private static final Logger LOG = Logger.getLogger(Model.class);
 
-    private ArrayList listOfMessage;
-    private ArrayList getListOfMessage;
+    View view;
+
+    private ArrayList<String> listOfMessage = new ArrayList();
+    private ArrayList<String> listOfUsers = new ArrayList();
 
     private DataOutputStream out;
     private DataInputStream in;
 
-    private ArrayList<Message> tempMessageList = new ArrayList<Message>();
-    private static ArrayList<String> tempUserList = new ArrayList<String>();
-    private String thisUserName;
+    String thisUserName;
+
+    public Model(View view) {
+
+        this.view = view;
+    }
+
+    private Thread workWithOneUser = new Thread() {
+
+        public void run() {
+
+            LOG.info("Thread workWithOneUser started");
+
+            while (true){
+
+                try {
+                    DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
+                    f.setValidating(false);
+                    DocumentBuilder builder = null;
+                    try {
+                        builder = f.newDocumentBuilder();
+                    } catch (ParserConfigurationException e) {
+                        e.printStackTrace();
+                    }
+
+                    String xml = in.readUTF();
+                    LOG.info("Client get xml: " + xml);
+
+                    Document doc = builder.parse(new InputSource(new ByteArrayInputStream(xml.getBytes("utf-8"))));
+
+                    NodeList list = doc.getElementsByTagName("values");
+
+                    for (int i = 0; i < list.getLength(); i++) {
+
+                        Element element = (Element) list.item(i);
+
+                        int id = Integer.parseInt(element.getElementsByTagName("id").item(0).getChildNodes().item(0).getNodeValue());
+
+                        switch (id) {
+
+                            case 4:
+
+                                String name = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
+
+                                addUserToList(name);
+
+                                break;
+
+                            case 5:
+
+                                String mesage = element.getElementsByTagName("message").item(0).getChildNodes().item(0).getNodeValue();
+
+                                addMessageToList(mesage);
+
+                                break;
+
+                            case 7:
+
+                                String names = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
+
+                                listOfUsers.add(names);
+
+                                break;
+                        }
+                    }
+                    view.setUsers(listOfUsers);
+                } catch (SAXException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }}};
 
     public void connectToServer() throws IOException{
 
@@ -27,6 +108,8 @@ public class Model  {
 
         out = new DataOutputStream(s.getOutputStream());
         in = new DataInputStream(s.getInputStream());
+
+        workWithOneUser.start();
     }
 
     public void sendMessageToServer(Message message,View view) throws IOException{
@@ -41,35 +124,6 @@ public class Model  {
         Transfer.sendNewUser(view,tempUser,in,out);
     }
 
-
-
-    public void expectMessageFromServer(DataInputStream cin, DataOutputStream cout) throws IOException{
-        Transfer.getMessageListFromServer(cin,cout);
-    }
-
-    public void expectUserListFromServer(DataInputStream cin, DataOutputStream cout) throws IOException{
-        Transfer.getUserListFromServer(cin, cout);
-    }
-
-
-
-
-    public ArrayList getListOfMessages(){
-        return tempMessageList;
-    }
-
-    public static ArrayList getListOfUsers(){
-        return tempUserList;
-    }
-
-    public void setThisUserName(String userName){
-        this.thisUserName = userName;
-    }
-
-    public String getThisUserName(){
-        return thisUserName;
-    }
-
     public Message createMessage(String message, String user){
 
         User tempUser = new User(user);
@@ -78,12 +132,24 @@ public class Model  {
         return tempMessage;
     }
 
-    public void addMessageToList(String message){
-        listOfMessage.add(message);
+    public void addUserToList(String user){
+
+        listOfUsers.add(user);
+        view.setUsers(listOfUsers);
     }
 
-    public static void addUserToList(String user){
-        getListOfUsers().add(user);
+    public void addMessageToList(String message) {
+
+        listOfMessage.add(message);
+        view.setMessages(listOfMessage);
+    }
+
+    public void setThisUserName(String name){
+        thisUserName = name;
+    }
+
+    public String getThisUserName(){
+        return thisUserName;
     }
 
     public void closeStreams() throws IOException{
