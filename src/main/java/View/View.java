@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
@@ -44,7 +45,18 @@ public class View {
         instantMessenger.setMessageList(list);
     }
 
+    public void setMessageTextFieldKeyListener(KeyListener listener){
+        instantMessenger.setMessageTextFieldKeyListener(listener);
+    }
+    public void setUserTextFieldKeyListener(KeyListener listener){
+        instantMessenger.setUserTextFieldKeyListener(listener);
+    }
+
     public void closeJFrame(){
         instantMessenger.closeJFrame();
+    }
+
+    public void cleanField(){
+        instantMessenger.cleanField();
     }
 }

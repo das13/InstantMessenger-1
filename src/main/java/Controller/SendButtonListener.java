@@ -32,5 +32,6 @@ public class SendButtonListener implements ActionListener {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+        view.cleanField();
     }
 }

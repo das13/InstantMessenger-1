@@ -5,6 +5,8 @@ import View.View;
 import org.apache.log4j.Logger;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 public class Controller {
@@ -23,6 +25,8 @@ public class Controller {
         addAddNewUserButtonListener();
         addSendButtonListener();
         addWindowsListener();
+        addSendMessageKeyListener();
+        addSendUserKeyListener();
 
         try {
             LOG.info("Try to connect with server.");
@@ -51,5 +55,15 @@ public class Controller {
         WindowsListener windowsListener = new WindowsListener(model, view);
         view.setWindowListener(windowsListener);
         LOG.info("WindowsListener added.");
+    }
+    public void addSendMessageKeyListener(){
+        SendMessageKeyPressedListener keyListener = new SendMessageKeyPressedListener(model,view);
+        view.setMessageTextFieldKeyListener(keyListener);
+        LOG.info("SendMessageKeyListener added");
+    }
+    public void addSendUserKeyListener(){
+        SendUserKeyPressedListener keyListener = new SendUserKeyPressedListener(model,view);
+        view.setUserTextFieldKeyListener(keyListener);
+        LOG.info("SendUserKeyListener added");
     }
 }

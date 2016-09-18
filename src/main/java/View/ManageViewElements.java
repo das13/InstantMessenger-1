@@ -6,6 +6,9 @@ import org.apache.log4j.Logger;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class ManageViewElements extends JFrame {
@@ -159,6 +162,20 @@ public class ManageViewElements extends JFrame {
 
     public void setAddNewUserButtonListener(ActionListener event) {
         addNewUserJButton.addActionListener(event);
+    }
+
+    public void setMessageTextFieldKeyListener(KeyListener listener) {
+
+        textOfMessageJTextField.addKeyListener(listener);
+    }
+
+    public void setUserTextFieldKeyListener(KeyListener listener) {
+
+        nameOfUserJTextField.addKeyListener(listener);
+    }
+
+    public void cleanField(){
+        textOfMessageJTextField.setText("");
     }
 
     public void closeJFrame(){
