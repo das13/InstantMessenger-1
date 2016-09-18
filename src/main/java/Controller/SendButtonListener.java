@@ -27,11 +27,19 @@ public class SendButtonListener implements ActionListener {
 
         try {
             LOG.info("Try to send message.");
-            model.sendMessageToServer(model.createMessage(view.getMessage(), model.getThisUserName()),view);
-            LOG.info("Successfully.");
+
+            String message = view.getMessage();
+
+            if (message.length() == 0) {
+
+            } else {
+
+                model.sendMessageToServer(model.createMessage(message, model.getThisUserName()), view);
+                LOG.info("Successfully.");
+            }
+            view.cleanField();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        view.cleanField();
     }
 }

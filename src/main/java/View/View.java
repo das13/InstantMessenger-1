@@ -1,5 +1,6 @@
 package View;
 
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowListener;
@@ -29,8 +30,8 @@ public class View {
         instantMessenger.addWindowListener(event);
     }
 
-    public void notificateFromNewUser() {
-        instantMessenger.notificateFromNewUser();
+    public void notificateFromNewUser(String s) {
+        JOptionPane.showMessageDialog(instantMessenger, s, "Уведомление!", JOptionPane.WARNING_MESSAGE);
     }
 
     public String getUserName(){
@@ -48,8 +49,13 @@ public class View {
     public void setMessageTextFieldKeyListener(KeyListener listener){
         instantMessenger.setMessageTextFieldKeyListener(listener);
     }
+
     public void setUserTextFieldKeyListener(KeyListener listener){
         instantMessenger.setUserTextFieldKeyListener(listener);
+    }
+
+    public void showMessageDialog(String s){
+        instantMessenger.noConnectionJFrame();
     }
 
     public void closeJFrame(){
@@ -58,5 +64,9 @@ public class View {
 
     public void cleanField(){
         instantMessenger.cleanField();
+    }
+
+    public void setExitButtonListener(ActionListener listener,WindowListener windowListener,KeyListener keyListener){
+        instantMessenger.setExitButtonListener(listener, windowListener, keyListener);
     }
 }

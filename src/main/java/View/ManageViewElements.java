@@ -5,10 +5,7 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class ManageViewElements extends JFrame {
@@ -16,7 +13,7 @@ public class ManageViewElements extends JFrame {
     private static final Logger LOG = Logger.getLogger(ManageViewElements.class);
 
     JFrame addNewUserJFrame = new JFrame();
-    JFrame notificateFromNewUserJFrame = new JFrame();
+    JFrame noConnectionJFrame = new JFrame();
 
     JPanel usersJPanel = new JPanel();
     JPanel messagesJPanel = new JPanel();
@@ -26,6 +23,7 @@ public class ManageViewElements extends JFrame {
 
     JButton sendMessageJButton = new JButton("Отправить");
     JButton addNewUserJButton = new JButton("Ок");
+    JButton exit = new JButton("Ок");
 
     JTextField nameOfUserJTextField = new JTextField(18);
     JTextField textOfMessageJTextField = new JTextField(45);
@@ -35,7 +33,6 @@ public class ManageViewElements extends JFrame {
 
     JScrollPane scrollPane = new JScrollPane(listOfMasseges);
     JScrollPane scrollPaneUser = new JScrollPane(listOfUsers);
-
 
     DefaultListModel messegesModelOfTask = new DefaultListModel();
     DefaultListModel userModelOfTask = new DefaultListModel();
@@ -47,6 +44,7 @@ public class ManageViewElements extends JFrame {
 
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setLayout(new BorderLayout());
 
         listOfMasseges.setModel(messegesModelOfTask);
@@ -76,7 +74,7 @@ public class ManageViewElements extends JFrame {
 
     public void addNewUserWindow() {
 
-        addNewUserJFrame.setSize(300, 100);
+        addNewUserJFrame.setSize(325, 90);
 
         NewUserWindowsListener listener = new NewUserWindowsListener();
 
@@ -100,23 +98,27 @@ public class ManageViewElements extends JFrame {
         addNewUserJFrame.add(addNewUserJpanel, BorderLayout.CENTER);
 
         addNewUserJFrame.setVisible(true);
+        addNewUserJFrame.setResizable(false);
         addNewUserJFrame.setLocationRelativeTo(null);
     }
 
-    public void notificateFromNewUser(){
-
-        notificateFromNewUserJFrame.setSize(300, 100);
-        notificateFromNewUserJFrame.setLayout(new FlowLayout());
-
-        String newUserName = "";
+    public void noConnectionJFrame(){
 
 
-        JLabel newUserNickname = new JLabel("У нас новый польователь: " + newUserName + "!");
 
-        notificateFromNewUserJFrame.add(newUserNickname);
+        noConnectionJFrame.setSize(325, 90);
+        noConnectionJFrame.setLayout(new FlowLayout());
 
-        notificateFromNewUserJFrame.setVisible(true);
-        notificateFromNewUserJFrame.setLocationRelativeTo(null);
+        JLabel textMessage = new JLabel("Нет поключения,  пожалуйста,  попробуйте позже.");
+
+        noConnectionJFrame.add(textMessage);
+        noConnectionJFrame.add(exit);
+
+        noConnectionJFrame.setVisible(true);
+        noConnectionJFrame.setLocationRelativeTo(null);
+        noConnectionJFrame.setResizable(false);
+        addNewUserJFrame.setEnabled(false);
+        setEnabled(false);
     }
 
     public void setMessageList(ArrayList list) {
@@ -180,6 +182,13 @@ public class ManageViewElements extends JFrame {
 
     public void closeJFrame(){
         addNewUserJFrame.setVisible(false);
+    }
+
+    public void setExitButtonListener(ActionListener listener, WindowListener windowListener, KeyListener keyListener){
+
+        noConnectionJFrame.addKeyListener(keyListener);
+        exit.addActionListener(listener);
+        noConnectionJFrame.addWindowListener(windowListener);
     }
 }
 

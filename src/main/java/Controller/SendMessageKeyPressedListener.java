@@ -30,12 +30,18 @@ public class SendMessageKeyPressedListener implements KeyListener {
 
         if (e.getKeyCode() == 10 ){
 
-            try {
-                LOG.info("Try to send message.");
-                model.sendMessageToServer(model.createMessage(view.getMessage(), model.getThisUserName()),view);
+            String message = view.getMessage();
+
+            if (message.length() == 0) {
+
+            } else {
+
+                try {
+                    model.sendMessageToServer(model.createMessage(message, model.getThisUserName()), view);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 LOG.info("Successfully.");
-            } catch (IOException e1) {
-                e1.printStackTrace();
             }
             view.cleanField();
         }

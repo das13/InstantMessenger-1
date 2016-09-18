@@ -25,15 +25,28 @@ public class AddNewUserButtonListener implements ActionListener {
 
         LOG.info("Add new user Jbutton pressed.");
 
-        model.setThisUserName(view.getUserName());
+        String userName = view.getUserName();
 
-        try {
-            LOG.info("Try to send user.");
-            model.sendNewUserToServer(view.getUserName(),view);
-            view.closeJFrame();
-            LOG.info("Successfully.");
-        } catch (IOException e1) {
-            e1.printStackTrace();
+        if (userName.length() == 0 ){
+
+            view.showMessageDialog("Вы не ввели имя, пожалуйста, попробуйте еще раз.");
+        }else {
+
+            if(userName.length() > 16){
+
+                view.showMessageDialog("Слишком длинное имя. Максимальное кол-во символов - 16");
+            }
+
+            model.setThisUserName(userName);
+
+            try {
+                LOG.info("Try to send user.");
+                model.sendNewUserToServer(view.getUserName(), view);
+                view.closeJFrame();
+                LOG.info("Successfully.");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 }

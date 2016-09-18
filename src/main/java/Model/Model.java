@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -73,6 +74,8 @@ public class Model  {
 
                                 addUserToList(name);
 
+                                view.notificateFromNewUser("У нас новый пользователь - " + name +"!");
+
                                 break;
 
                             case 5:
@@ -104,12 +107,19 @@ public class Model  {
 
     public void connectToServer() throws IOException{
 
-        Socket s = new Socket("localhost",4545);
+        try{
 
-        out = new DataOutputStream(s.getOutputStream());
-        in = new DataInputStream(s.getInputStream());
+            Socket s = new Socket("localhost",4545);
 
-        workWithOneUser.start();
+            out = new DataOutputStream(s.getOutputStream());
+            in = new DataInputStream(s.getInputStream());
+
+            workWithOneUser.start();
+
+        }catch (ConnectException e){
+            view.showMessageDialog("Нет подключения, пожалуйста, попробуйте позже.");
+
+        }
     }
 
     public void sendMessageToServer(Message message,View view) throws IOException{

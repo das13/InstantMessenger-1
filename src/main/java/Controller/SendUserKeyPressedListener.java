@@ -28,22 +28,32 @@ public class SendUserKeyPressedListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
-        if (e.getKeyCode() == 10 ){
+        if (e.getKeyCode() == 10) {
+            String userName = view.getUserName();
 
-            model.setThisUserName(view.getUserName());
+            if (userName.length() == 0) {
 
-            try {
-                LOG.info("Try to send user.");
-                model.sendNewUserToServer(view.getUserName(),view);
-                view.closeJFrame();
-                LOG.info("Successfully.");
-            } catch (IOException e1) {
-                e1.printStackTrace();
+                view.showMessageDialog("Вы не ввели имя, пожалуйста, попробуйте еще раз.");
+            } else {
+
+                if (userName.length() > 16) {
+
+                    view.showMessageDialog("Слишком длинное имя. Максимальное кол-во символов - 16");
+                }
+
+                model.setThisUserName(userName);
+
+                try {
+                    LOG.info("Try to send user.");
+                    model.sendNewUserToServer(view.getUserName(), view);
+                    view.closeJFrame();
+                    LOG.info("Successfully.");
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         }
-
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
 

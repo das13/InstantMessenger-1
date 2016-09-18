@@ -11,13 +11,13 @@ import java.awt.event.WindowListener;
 
     @Override
     public void windowOpened(WindowEvent e) {
-       LOG.info("Window opened.");
 
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
        LOG.info("Window closing.");
+       System.exit(-1);
 
     }
 

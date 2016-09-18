@@ -27,11 +27,11 @@ public class Controller {
         addWindowsListener();
         addSendMessageKeyListener();
         addSendUserKeyListener();
+        addExitButtonListener();
 
         try {
             LOG.info("Try to connect with server.");
             model.connectToServer();
-
             LOG.info("Successfully.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,6 +49,13 @@ public class Controller {
         ActionListener sendButtonListener = new SendButtonListener(model,view);
         view.setSendButtonListener(sendButtonListener);
         LOG.info("SendButtonListener added.");
+    }
+    public void addExitButtonListener(){
+        CloseProgram closeListener = new CloseProgram();
+        NewUserWindowsListener windowsListener = new NewUserWindowsListener();
+        ExitButtonListener exitButtonListener = new ExitButtonListener();
+        view.setExitButtonListener(closeListener,windowsListener,exitButtonListener);
+        LOG.info("ExitButtonListener added.");
     }
 
     public void addWindowsListener(){
