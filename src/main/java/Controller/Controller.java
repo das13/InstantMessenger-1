@@ -5,8 +5,6 @@ import View.View;
 import org.apache.log4j.Logger;
 
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 
 public class Controller {
@@ -27,7 +25,8 @@ public class Controller {
         addWindowsListener();
         addSendMessageKeyListener();
         addSendUserKeyListener();
-        addExitButtonListener();
+        addExitKeyListener();
+        addNewUserWindowsListener();
 
         try {
             LOG.info("Try to connect with server.");
@@ -50,12 +49,11 @@ public class Controller {
         view.setSendButtonListener(sendButtonListener);
         LOG.info("SendButtonListener added.");
     }
-    public void addExitButtonListener(){
-        CloseProgram closeListener = new CloseProgram();
-        NewUserWindowsListener windowsListener = new NewUserWindowsListener();
-        ExitButtonListener exitButtonListener = new ExitButtonListener();
-        view.setExitButtonListener(closeListener,windowsListener,exitButtonListener);
-        LOG.info("ExitButtonListener added.");
+    public void addExitKeyListener(){
+        CloseProgramJButtonListener closeListener = new CloseProgramJButtonListener();
+        ExitKeyListener keyListener = new ExitKeyListener();
+        view.setExitButtonListener(closeListener,keyListener);
+        LOG.info("ExitKeyListener added.");
     }
 
     public void addWindowsListener(){
@@ -72,5 +70,9 @@ public class Controller {
         SendUserKeyPressedListener keyListener = new SendUserKeyPressedListener(model,view);
         view.setUserTextFieldKeyListener(keyListener);
         LOG.info("SendUserKeyListener added");
+    }
+    public void addNewUserWindowsListener(){
+        NewUserWindowsListener windowsListener = new NewUserWindowsListener(model,view);
+        view.addNewUserWindowsListener(windowsListener);
     }
 }

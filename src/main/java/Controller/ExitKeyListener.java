@@ -5,9 +5,9 @@ import org.apache.log4j.Logger;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class ExitButtonListener implements KeyListener {
+public class ExitKeyListener implements KeyListener {
 
-    private static final Logger LOG = Logger.getLogger(ExitButtonListener.class);
+    private static final Logger LOG = Logger.getLogger(ExitKeyListener.class);
 
     @Override
     public void keyTyped(KeyEvent e) {

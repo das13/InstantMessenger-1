@@ -1,6 +1,9 @@
 package View;
 
 import Controller.NewUserWindowsListener;
+import Controller.NoConnectionWindowsListener;
+import Controller.WindowsListener;
+import Model.User;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -74,16 +77,12 @@ public class ManageViewElements extends JFrame {
 
     public void addNewUserWindow() {
 
-        addNewUserJFrame.setSize(325, 90);
-
-        NewUserWindowsListener listener = new NewUserWindowsListener();
-
-        addNewUserJFrame.addWindowListener(listener);
+        addNewUserJFrame.setSize(280, 90);
 
         welcomeJpanel = new JPanel();
         addNewUserJpanel = new JPanel();
 
-        JLabel welcomeJlabel = new JLabel("Привет! Пожалуйста, введи свой никнейм:");
+        JLabel welcomeJlabel = new JLabel("Пожалуйста, введите свое имя:");
 
         addNewUserJpanel.setLayout(new FlowLayout());
         addNewUserJpanel.add(nameOfUserJTextField);
@@ -104,10 +103,11 @@ public class ManageViewElements extends JFrame {
 
     public void noConnectionJFrame(){
 
-
-
         noConnectionJFrame.setSize(325, 90);
         noConnectionJFrame.setLayout(new FlowLayout());
+
+        NoConnectionWindowsListener windowsListener = new NoConnectionWindowsListener();
+        noConnectionJFrame.addWindowListener(windowsListener);
 
         JLabel textMessage = new JLabel("Нет поключения,  пожалуйста,  попробуйте позже.");
 
@@ -143,7 +143,7 @@ public class ManageViewElements extends JFrame {
         return nameOfUserJTextField.getText();
     }
 
-    public void setUserList(ArrayList list) {
+    public void setUserList(ArrayList<User> list) {
         this.userModelOfTask.clear();
 
         if (list.size() == 0) {
@@ -151,10 +151,10 @@ public class ManageViewElements extends JFrame {
         }
 
         for (int i = 0; i < list.size() - 1; i++) {
-            String tempUser = "* "+ list.get(i).toString() + ";";
+            String tempUser = "* "+ list.get(i).getUser_Name() + ";";
             userModelOfTask.addElement(tempUser);
         }
-        String tempUser = "* "+ list.get(list.size() - 1).toString() + ".";
+        String tempUser = "* "+ list.get(list.size() - 1).getUser_Name() + ".";
         userModelOfTask.addElement(tempUser);
     }
 
@@ -184,11 +184,15 @@ public class ManageViewElements extends JFrame {
         addNewUserJFrame.setVisible(false);
     }
 
-    public void setExitButtonListener(ActionListener listener, WindowListener windowListener, KeyListener keyListener){
+    public void setExitButtonListener(ActionListener listener, KeyListener keyListener){
 
         noConnectionJFrame.addKeyListener(keyListener);
         exit.addActionListener(listener);
-        noConnectionJFrame.addWindowListener(windowListener);
+    }
+
+    public void addNewUserWindowsListener(NewUserWindowsListener listener){
+
+        addNewUserJFrame.addWindowListener(listener);
     }
 }
 

@@ -1,5 +1,7 @@
 package View;
 
+import Controller.NewUserWindowsListener;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
@@ -66,7 +68,10 @@ public class View {
         instantMessenger.cleanField();
     }
 
-    public void setExitButtonListener(ActionListener listener,WindowListener windowListener,KeyListener keyListener){
-        instantMessenger.setExitButtonListener(listener, windowListener, keyListener);
+    public void setExitButtonListener(ActionListener listener,KeyListener keyListener){
+        instantMessenger.setExitButtonListener(listener, keyListener);
+    }
+    public void addNewUserWindowsListener(NewUserWindowsListener listener){
+        instantMessenger.addNewUserWindowsListener(listener);
     }
 }

@@ -23,12 +23,13 @@ public class Model  {
     View view;
 
     private ArrayList<String> listOfMessage = new ArrayList();
-    private ArrayList<String> listOfUsers = new ArrayList();
+    private ArrayList<User> listOfUsers = new ArrayList();
 
     private DataOutputStream out;
     private DataInputStream in;
 
     String thisUserName;
+    int thisUserId;
 
     public Model(View view) {
 
@@ -69,16 +70,23 @@ public class Model  {
                         switch (id) {
 
                             case 4:
+                                System.out.println("case 4");
 
                                 String name = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
 
-                                addUserToList(name);
+                                int idOfUser = Integer.parseInt(element.getElementsByTagName("userId").item(0).getChildNodes().item(0).getNodeValue());
+
+                                User tempUser = new User(name, idOfUser);
+
+                                addUserToList(tempUser);
 
                                 view.notificateFromNewUser("У нас новый пользователь - " + name +"!");
 
                                 break;
 
                             case 5:
+
+                                System.out.println("case 5");
 
                                 String mesage = element.getElementsByTagName("message").item(0).getChildNodes().item(0).getNodeValue();
 
@@ -88,14 +96,35 @@ public class Model  {
 
                             case 7:
 
-                                String names = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
+                                System.out.println("case 7");
 
-                                listOfUsers.add(names);
+                                String name7 = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
+
+                                int idOfUser7 = Integer.parseInt(element.getElementsByTagName("userId").item(0).getChildNodes().item(0).getNodeValue());
+
+                                User user7 = new User(name7,idOfUser7);
+
+                                listOfUsers.add(user7);
 
                                 break;
+
+                            case 9:
+
+                                System.out.println("case 9");
+
+                                String name9 = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
+
+                                int index = Integer.parseInt(element.getElementsByTagName("userId").item(0).getChildNodes().item(0).getNodeValue());
+
+                                listOfUsers.remove(index);
+
+                                //this.stop();
+
                         }
                     }
+
                     view.setUsers(listOfUsers);
+
                 } catch (SAXException e) {
                     e.printStackTrace();
                 } catch (UnsupportedEncodingException e) {
@@ -124,28 +153,27 @@ public class Model  {
 
     public void sendMessageToServer(Message message,View view) throws IOException{
 
-        Transfer.sendMessage(view,message,in,out);
+        Transfer.sendMessage(message, out);
     }
 
     public void sendNewUserToServer(String nameOfUser,View view) throws IOException{
 
-        User tempUser = new User(nameOfUser);
+        User tempUser = new User(nameOfUser,0);
 
-        Transfer.sendNewUser(view,tempUser,in,out);
+        Transfer.sendNewUser(tempUser, out);
     }
 
     public Message createMessage(String message, String user){
 
-        User tempUser = new User(user);
+        User tempUser = new User(user,0);
         Message tempMessage = new Message(tempUser,message);
 
         return tempMessage;
     }
 
-    public void addUserToList(String user){
+    public void addUserToList(User user){
 
         listOfUsers.add(user);
-        view.setUsers(listOfUsers);
     }
 
     public void addMessageToList(String message) {
@@ -154,19 +182,35 @@ public class Model  {
         view.setMessages(listOfMessage);
     }
 
+    public void deleteUser(String name, int idOfUser) throws IOException{
+
+        Transfer.deleteUser(name, idOfUser, out);
+    }
+
     public void setThisUserName(String name){
         thisUserName = name;
+    }
+
+    public void setThisUserId(int id){
+        thisUserId = id;
     }
 
     public String getThisUserName(){
         return thisUserName;
     }
 
+    public int getThisUserId(){
+        return thisUserId;
+    }
+
+
     public void closeStreams() throws IOException{
 
         LOG.info("Close the streams.");
 
-        in.close();
-        out.close();
+       // in.close();
+       // out.close();
+
+        workWithOneUser.stop();
     }
 }

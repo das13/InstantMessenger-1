@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 public class WindowsListener implements WindowListener {
 
@@ -27,6 +28,13 @@ public class WindowsListener implements WindowListener {
     @Override
     public void windowClosing(WindowEvent e) {
         LOG.info("Window closing.");
+
+        try {
+            model.deleteUser(model.getThisUserName(),model.getThisUserId());
+           // model.closeStreams();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 
     @Override

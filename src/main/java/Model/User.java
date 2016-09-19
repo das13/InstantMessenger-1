@@ -12,8 +12,11 @@ public class User {
 
     private String user_Name;
 
-    public User(String user_Name) {
+    private int id;
+
+    public User(String user_Name, int id) {
         this.user_Name = user_Name;
+        this.id = id;
         LOG.info("User created");
     }
 
@@ -25,6 +28,14 @@ public class User {
         return user_Name;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String toString(){
         LOG.info("User toString used.");
 
@@ -33,7 +44,8 @@ public class User {
                     "<values>" +
                          "<id>"+ 4 +"</id>" +
                          "<message></message>" +
-                          "<user>"+ user_Name +"</user>" +
+                         "<user>"+ user_Name +"</user>" +
+                         "<userId></userId>"+
                     "</values>" +
                 "</data>";
     }
