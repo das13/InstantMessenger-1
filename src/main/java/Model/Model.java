@@ -13,8 +13,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.net.ConnectException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class Model  {
 
@@ -29,6 +31,7 @@ public class Model  {
     private DataInputStream in;
 
     String thisUserName;
+
     int thisUserId;
 
     public Model(View view) {
@@ -122,7 +125,6 @@ public class Model  {
 
                         }
                     }
-
                     view.setUsers(listOfUsers);
 
                 } catch (SAXException e) {
@@ -136,9 +138,17 @@ public class Model  {
 
     public void connectToServer() throws IOException{
 
-        try{
+        FileInputStream fin;
+        Properties property = new Properties();
 
-            Socket s = new Socket("localhost",4545);
+        try{
+            fin = new FileInputStream("src/main/resources/config.properties");
+            property.load(fin);
+
+            int PORT  = Integer.parseInt(property.getProperty("PORT"));
+            String addres = property.getProperty("Address");
+
+            Socket s = new Socket(addres,PORT);
 
             out = new DataOutputStream(s.getOutputStream());
             in = new DataInputStream(s.getInputStream());
@@ -189,6 +199,20 @@ public class Model  {
 
     public void setThisUserName(String name){
         thisUserName = name;
+
+        FileInputStream fin;
+        Properties property = new Properties();
+        try {
+            fin = new FileInputStream("src/main/resources/config.properties");
+            property.load(fin);
+
+            property.setProperty("UserName",name);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setThisUserId(int id){
