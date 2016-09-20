@@ -3,6 +3,7 @@ package Controller;
 import Model.Model;
 import View.View;
 import org.apache.log4j.Logger;
+import org.apache.velocity.runtime.log.Log;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class Controller {
             model.connectToServer();
             LOG.info("Successfully.");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("IOException: Can't connect with server "+ e);
         }
         LOG.info("Controller created.");
     }
@@ -74,5 +75,6 @@ public class Controller {
     public void addNewUserWindowsListener(){
         NewUserWindowsListener windowsListener = new NewUserWindowsListener(model,view);
         view.addNewUserWindowsListener(windowsListener);
+        LOG.info("addNewUserWindowsListener added");
     }
 }

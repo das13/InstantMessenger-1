@@ -54,7 +54,7 @@ public class Model  {
                     try {
                         builder = f.newDocumentBuilder();
                     } catch (ParserConfigurationException e) {
-                        e.printStackTrace();
+                        LOG.error("ParserConfigurationException: "+ e);
                     }
 
                     String xml = in.readUTF();

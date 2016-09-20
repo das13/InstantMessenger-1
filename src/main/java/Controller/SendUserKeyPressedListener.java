@@ -28,6 +28,8 @@ public class SendUserKeyPressedListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
+        LOG.trace("Enter pressed. Try to send user.");
+
         if (e.getKeyCode() == 10) {
             String userName = view.getUserName();
 
@@ -49,7 +51,7 @@ public class SendUserKeyPressedListener implements KeyListener {
                     view.closeJFrame();
                     LOG.info("Successfully.");
                 } catch (IOException e1) {
-                    e1.printStackTrace();
+                    LOG.error("IOException: Can't send message/close streams "+ e);
                 }
             }
         }

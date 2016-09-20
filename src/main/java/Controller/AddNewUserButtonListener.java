@@ -23,7 +23,7 @@ public class AddNewUserButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        LOG.info("Add new user Jbutton pressed.");
+        LOG.trace("Add new user Jbutton pressed.");
 
         String userName = view.getUserName();
 
@@ -40,12 +40,12 @@ public class AddNewUserButtonListener implements ActionListener {
             model.setThisUserName(userName);
 
             try {
-                LOG.info("Try to send user.");
+                LOG.debug("Try to send user.");
                 model.sendNewUserToServer(view.getUserName(), view);
                 view.closeJFrame();
-                LOG.info("Successfully.");
+                LOG.debug("Successfully.");
             } catch (IOException e1) {
-                e1.printStackTrace();
+                LOG.error("IOException: Can't send new user "+ e1);
             }
         }
     }

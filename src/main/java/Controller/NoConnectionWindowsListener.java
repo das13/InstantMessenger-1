@@ -18,7 +18,7 @@ public class NoConnectionWindowsListener implements WindowListener {
     @Override
     public void windowClosing(WindowEvent e) {
 
-        LOG.info("Close the program.");
+        LOG.trace("No connection window closing. Close the program.");
 
         System.exit(-1);
     }

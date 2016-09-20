@@ -12,6 +12,8 @@ public class CloseProgramJButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        LOG.trace("Ok button pressed. Close the program.");
+
         System.exit(-1);
     }
 }

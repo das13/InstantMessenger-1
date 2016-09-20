@@ -23,10 +23,10 @@ public class SendButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        LOG.info("Send message Jbutton pressed.");
+        LOG.trace("Send message Jbutton pressed.");
 
         try {
-            LOG.info("Try to send message.");
+            LOG.debug("Try to send message.");
 
             String message = view.getMessage();
 
@@ -35,11 +35,11 @@ public class SendButtonListener implements ActionListener {
             } else {
 
                 model.sendMessageToServer(model.createMessage(message, model.getThisUserName()), view);
-                LOG.info("Successfully.");
+                LOG.debug("Successfully.");
             }
             view.cleanField();
         } catch (IOException e1) {
-            e1.printStackTrace();
+            LOG.error("IOException: Can't send message "+ e1);
         }
     }
 }

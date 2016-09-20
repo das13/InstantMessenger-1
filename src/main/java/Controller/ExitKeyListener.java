@@ -16,7 +16,7 @@ public class ExitKeyListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        LOG.info("Close program");
+        LOG.trace("Enter pressed. Close the program.");
 
         if (e.getKeyCode() == 10 ){
             System.exit(-1);

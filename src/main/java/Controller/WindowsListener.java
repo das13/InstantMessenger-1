@@ -27,13 +27,13 @@ public class WindowsListener implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-        LOG.info("Window closing.");
+        LOG.trace("Main window closing.");
 
         try {
             model.deleteUser(model.getThisUserName(),model.getThisUserId());
            // model.closeStreams();
         } catch (IOException e1) {
-            e1.printStackTrace();
+            LOG.error("IOException: Can't delete user "+ e);
         }
     }
 

@@ -36,7 +36,7 @@ public class Message implements Serializable {
     }
 
     public String toString(){
-        LOG.info("Message toString used.");
+        LOG.debug("Message toString used.");
 
         return "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
                 "<data>" +

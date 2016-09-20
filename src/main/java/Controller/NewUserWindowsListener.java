@@ -27,15 +27,13 @@ public class NewUserWindowsListener implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-       LOG.info("Window closing.");
+       LOG.trace("New user window closing.");
        try {
           model.closeStreams();
        } catch (IOException e1) {
-          e1.printStackTrace();
+           LOG.error("IOException: Can't close streams "+ e1);
        }
-
        System.exit(-1);
-
     }
 
     @Override

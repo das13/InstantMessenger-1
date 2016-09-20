@@ -37,7 +37,7 @@ public class User {
     }
 
     public String toString(){
-        LOG.info("User toString used.");
+        LOG.debug("User toString used.");
 
         return "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
                 "<data>" +

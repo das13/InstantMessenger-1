@@ -28,6 +28,8 @@ public class SendMessageKeyPressedListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
+        LOG.trace("Enter pressed. Try to send message.");
+
         if (e.getKeyCode() == 10 ){
 
             String message = view.getMessage();
@@ -39,7 +41,7 @@ public class SendMessageKeyPressedListener implements KeyListener {
                 try {
                     model.sendMessageToServer(model.createMessage(message, model.getThisUserName()), view);
                 } catch (IOException e1) {
-                    e1.printStackTrace();
+                    LOG.error("IOException: Can't send message. "+ e);
                 }
                 LOG.info("Successfully.");
             }
