@@ -29,12 +29,12 @@ public class AddNewUserButtonListener implements ActionListener {
 
         if (userName.length() == 0 ){
 
-            view.showMessageDialog("Вы не ввели имя, пожалуйста, попробуйте еще раз.");
+            view.notificateFromNewUser("Вы не ввели имя, пожалуйста, попробуйте еще раз.");
         }else {
 
             if(userName.length() > 16){
 
-                view.showMessageDialog("Слишком длинное имя. Максимальное кол-во символов - 16");
+                view.notificateFromNewUser("Слишком длинное имя. Максимальное кол-во символов - 16");
             }
 
             model.setThisUserName(userName);
