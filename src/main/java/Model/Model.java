@@ -24,7 +24,6 @@ public class Model  {
 
     View view;
 
-    private ArrayList<String> listOfMessage = new ArrayList();
     private ArrayList<User> listOfUsers = new ArrayList();
 
     private DataOutputStream out;
@@ -188,8 +187,7 @@ public class Model  {
 
     public void addMessageToList(String message) {
 
-        listOfMessage.add(message);
-        view.setMessages(listOfMessage);
+        view.addMessages(message);
     }
 
     public void deleteUser(String name, int idOfUser) throws IOException{

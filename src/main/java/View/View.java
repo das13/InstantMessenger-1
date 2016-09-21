@@ -44,8 +44,8 @@ public class View {
         instantMessenger.setUserList(users);
     }
 
-    public void setMessages(ArrayList list) {
-        instantMessenger.setMessageList(list);
+    public void addMessages(String message) {
+        instantMessenger.addMessage(message);
     }
 
     public void setMessageTextFieldKeyListener(KeyListener listener){

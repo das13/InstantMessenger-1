@@ -29,9 +29,10 @@ public class ManageViewElements extends JFrame {
     JButton exit = new JButton("Ок");
 
     JTextField nameOfUserJTextField = new JTextField(18);
-    JTextField textOfMessageJTextField = new JTextField(45);
+    JTextArea textOfMessageJAreaField = new JTextArea(3,45);
+    JScrollPane scrollPaneMessage = new JScrollPane(textOfMessageJAreaField);
 
-    JList listOfMasseges = new JList();
+    JTextArea listOfMasseges = new JTextArea();
     JList listOfUsers = new JList();
 
     JScrollPane scrollPane = new JScrollPane(listOfMasseges);
@@ -50,14 +51,20 @@ public class ManageViewElements extends JFrame {
 
         setLayout(new BorderLayout());
 
-        listOfMasseges.setModel(messegesModelOfTask);
         listOfUsers.setModel(userModelOfTask);
+
+        listOfMasseges.setEditable(false);
+        listOfMasseges.setLineWrap(true);
+        listOfMasseges.setWrapStyleWord(true);
 
         sendBarJpanel.setLayout(new FlowLayout());
         usersJPanel.setLayout(new BorderLayout());
         messagesJPanel.setLayout(new BorderLayout());
 
-        sendBarJpanel.add(textOfMessageJTextField);
+        textOfMessageJAreaField.setLineWrap(true);;
+        textOfMessageJAreaField.setWrapStyleWord(true);
+
+        sendBarJpanel.add(scrollPaneMessage);
         sendBarJpanel.add(sendMessageJButton);
 
         usersJPanel.add(scrollPaneUser, BorderLayout.CENTER);
@@ -121,22 +128,12 @@ public class ManageViewElements extends JFrame {
         setEnabled(false);
     }
 
-    public void setMessageList(ArrayList list) {
-
-        this.messegesModelOfTask.clear();
-
-        if (list.size() == 0) {
-            return;
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            String tempMessage = list.get(i).toString();
-            messegesModelOfTask.addElement(tempMessage);
-        }
+    public void addMessage(String message) {
+        listOfMasseges.append(message + "\n");
     }
 
     public String getMessage() {
-        return textOfMessageJTextField.getText();
+        return textOfMessageJAreaField.getText();
     }
 
     public String getUserName() {
@@ -168,7 +165,7 @@ public class ManageViewElements extends JFrame {
 
     public void setMessageTextFieldKeyListener(KeyListener listener) {
 
-        textOfMessageJTextField.addKeyListener(listener);
+        textOfMessageJAreaField.addKeyListener(listener);
     }
 
     public void setUserTextFieldKeyListener(KeyListener listener) {
@@ -177,7 +174,7 @@ public class ManageViewElements extends JFrame {
     }
 
     public void cleanField(){
-        textOfMessageJTextField.setText("");
+        textOfMessageJAreaField.setText("");
     }
 
     public void closeJFrame(){
