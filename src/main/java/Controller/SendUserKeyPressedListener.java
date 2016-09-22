@@ -31,27 +31,35 @@ public class SendUserKeyPressedListener implements KeyListener {
         LOG.trace("Enter pressed. Try to send user.");
 
         if (e.getKeyCode() == 10) {
+
             String userName = view.getUserName();
 
-            if (userName.length() == 0) {
+            boolean keepOn = true;
 
-                view.showMessageDialog("Вы не ввели имя, пожалуйста, попробуйте еще раз.");
-            } else {
+            if (userName.length() == 0 ){
 
-                if (userName.length() > 16) {
+                keepOn = false;
 
-                    view.showMessageDialog("Слишком длинное имя. Максимальное кол-во символов - 16");
-                }
+                view.notificateFromNewUser("Вы не ввели имя, пожалуйста, попробуйте еще раз.");
+            }
 
+            if(userName.length() > 16){
+
+                keepOn = false;
+
+                view.notificateFromNewUser("Слишком длинное имя. Максимальное кол-во символов - 16");
+            }
+
+            if(keepOn){
                 model.setThisUserName(userName);
 
                 try {
-                    LOG.info("Try to send user.");
+                    LOG.debug("Try to send user.");
                     model.sendNewUserToServer(view.getUserName(), view);
                     view.closeJFrame();
-                    LOG.info("Successfully.");
+                    LOG.debug("Successfully.");
                 } catch (IOException e1) {
-                    LOG.error("IOException: Can't send message/close streams "+ e);
+                    LOG.error("IOException: Can't send new user "+ e1);
                 }
             }
         }

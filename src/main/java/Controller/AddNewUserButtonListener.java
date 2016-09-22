@@ -27,26 +27,33 @@ public class AddNewUserButtonListener implements ActionListener {
 
         String userName = view.getUserName();
 
+        boolean keepOn = true;
+
         if (userName.length() == 0 ){
 
+             keepOn = false;
+
             view.notificateFromNewUser("Вы не ввели имя, пожалуйста, попробуйте еще раз.");
-        }else {
+        }
 
             if(userName.length() > 16){
+
+                keepOn = false;
 
                 view.notificateFromNewUser("Слишком длинное имя. Максимальное кол-во символов - 16");
             }
 
-            model.setThisUserName(userName);
+            if(keepOn){
+                model.setThisUserName(userName);
 
-            try {
-                LOG.debug("Try to send user.");
-                model.sendNewUserToServer(view.getUserName(), view);
-                view.closeJFrame();
-                LOG.debug("Successfully.");
-            } catch (IOException e1) {
-                LOG.error("IOException: Can't send new user "+ e1);
+                try {
+                    LOG.debug("Try to send user.");
+                    model.sendNewUserToServer(view.getUserName(), view);
+                    view.closeJFrame();
+                    LOG.debug("Successfully.");
+                } catch (IOException e1) {
+                    LOG.error("IOException: Can't send new user "+ e1);
+                }
             }
-        }
     }
 }

@@ -71,6 +71,7 @@ public class View {
     public void setExitButtonListener(ActionListener listener,KeyListener keyListener){
         instantMessenger.setExitButtonListener(listener, keyListener);
     }
+
     public void addNewUserWindowsListener(NewUserWindowsListener listener){
         instantMessenger.addNewUserWindowsListener(listener);
     }
