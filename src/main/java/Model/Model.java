@@ -123,6 +123,7 @@ public class Model  {
                                     if (listOfUsers.get(temp).getId() == id9) {
 
                                         listOfUsers.remove(temp);
+
                                         break;
                                     }
                                 }
@@ -142,11 +143,11 @@ public class Model  {
                     view.setUsers(listOfUsers);
 
                 } catch (SAXException e) {
-                    e.printStackTrace();
+                    LOG.error("SAXException: Can't send new user "+ e);
                 } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
+                    LOG.error("UnsupportedEncodingException: Can't send new user "+ e);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOG.error("IOException: Can't send new user "+ e);
                 }
             }}};
 
