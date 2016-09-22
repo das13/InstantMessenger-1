@@ -31,7 +31,7 @@ public class WindowsListener implements WindowListener {
 
         try {
             model.deleteUser(model.getThisUserName(),model.getThisUserId());
-           // model.closeStreams();
+            model.closeStreams();
         } catch (IOException e1) {
             LOG.error("IOException: Can't delete user "+ e);
         }

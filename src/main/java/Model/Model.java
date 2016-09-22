@@ -33,6 +33,8 @@ public class Model  {
 
     private ArrayList<User> listOfUsers = new ArrayList();
 
+    private Socket s;
+
     private DataOutputStream out;
     private DataInputStream in;
 
@@ -162,7 +164,7 @@ public class Model  {
             int PORT  = Integer.parseInt(property.getProperty("PORT"));
             String addres = property.getProperty("Address");
 
-            Socket s = new Socket(addres,PORT);
+            s = new Socket(addres,PORT);
 
             out = new DataOutputStream(s.getOutputStream());
             in = new DataInputStream(s.getInputStream());
@@ -243,9 +245,11 @@ public class Model  {
 
         LOG.info("Close the streams.");
 
-       // in.close();
-       // out.close();
+        s.close();
 
-        workWithOneUser.stop();
+        in.close();
+        out.close();
+
+       workWithOneUser.stop();
     }
 }
