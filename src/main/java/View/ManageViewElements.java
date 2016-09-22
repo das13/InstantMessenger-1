@@ -38,7 +38,6 @@ public class ManageViewElements extends JFrame {
     JScrollPane scrollPane = new JScrollPane(listOfMasseges);
     JScrollPane scrollPaneUser = new JScrollPane(listOfUsers);
 
-    DefaultListModel messegesModelOfTask = new DefaultListModel();
     DefaultListModel userModelOfTask = new DefaultListModel();
 
 
@@ -175,6 +174,15 @@ public class ManageViewElements extends JFrame {
 
     public void cleanField(){
         textOfMessageJAreaField.setText("");
+
+        try {
+            Robot r = new Robot();
+
+            r.keyPress(KeyEvent.VK_BACK_SPACE);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void closeJFrame(){
@@ -192,5 +200,3 @@ public class ManageViewElements extends JFrame {
         addNewUserJFrame.addWindowListener(listener);
     }
 }
-
-

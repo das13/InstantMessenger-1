@@ -119,10 +119,8 @@ public class Model  {
                                 int id9 = Integer.parseInt(element.getElementsByTagName("userId").item(0).getChildNodes().item(0).getNodeValue());
 
                                 for (int temp = 0; i < listOfUsers.size(); temp++) {
-                                    System.out.println("for I ="+ temp);
 
                                     if (listOfUsers.get(temp).getId() == id9) {
-                                        System.out.println("if I ="+ temp);
 
                                         listOfUsers.remove(temp);
                                         break;
