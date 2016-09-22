@@ -39,7 +39,7 @@ public class SendMessageKeyPressedListener implements KeyListener {
             } else {
 
                 try {
-                    model.sendMessageToServer(model.createMessage(message, model.getThisUserName()), view);
+                    model.sendMessageToServer(model.createMessage(message, model.getThisUserName()),model.getThisUserName(), view);
                 } catch (IOException e1) {
                     LOG.error("IOException: Can't send message. "+ e);
                 }

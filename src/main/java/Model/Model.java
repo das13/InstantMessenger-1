@@ -2,6 +2,7 @@ package Model;
 
 import View.View;
 import org.apache.log4j.Logger;
+import org.apache.log4j.varia.StringMatchFilter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -24,14 +25,20 @@ public class Model  {
 
     View view;
 
+    private final static int GET_NEW_USER = 4;
+    private final static int GET_MESSAGE = 5;
+    private final static int GET_USER_LIST = 7;
+    private final static int DELETE_USER = 9;
+    private final static int GET_USER_ID_USER_NAME = 11;
+
     private ArrayList<User> listOfUsers = new ArrayList();
 
     private DataOutputStream out;
     private DataInputStream in;
 
-    String thisUserName;
+    private String thisUserName;
 
-    int thisUserId;
+    private int thisUserId;
 
     public Model(View view) {
 
@@ -71,8 +78,7 @@ public class Model  {
 
                         switch (id) {
 
-                            case 4:
-                                System.out.println("case 4");
+                            case GET_NEW_USER:
 
                                 String name = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
 
@@ -82,13 +88,11 @@ public class Model  {
 
                                 addUserToList(tempUser);
 
-                                view.notificateFromNewUser("У нас новый пользователь - " + name +"!");
+                                view.notificateFromNewUser("У нас новый пользователь - " + name);
 
                                 break;
 
-                            case 5:
-
-                                System.out.println("case 5");
+                            case GET_MESSAGE:
 
                                 String mesage = element.getElementsByTagName("message").item(0).getChildNodes().item(0).getNodeValue();
 
@@ -96,32 +100,43 @@ public class Model  {
 
                                 break;
 
-                            case 7:
-
-                                System.out.println("case 7");
+                            case GET_USER_LIST:
 
                                 String name7 = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
 
                                 int idOfUser7 = Integer.parseInt(element.getElementsByTagName("userId").item(0).getChildNodes().item(0).getNodeValue());
 
-                                User user7 = new User(name7,idOfUser7);
+                                User user7 = new User(name7, idOfUser7);
 
                                 listOfUsers.add(user7);
 
                                 break;
 
-                            case 9:
+                            case DELETE_USER:
 
-                                System.out.println("case 9");
+                                int id9 = Integer.parseInt(element.getElementsByTagName("userId").item(0).getChildNodes().item(0).getNodeValue());
 
-                                String name9 = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
+                                for (int temp = 0; i < listOfUsers.size(); temp++) {
+                                    System.out.println("for I ="+ temp);
 
-                                int index = Integer.parseInt(element.getElementsByTagName("userId").item(0).getChildNodes().item(0).getNodeValue());
+                                    if (listOfUsers.get(temp).getId() == id9) {
+                                        System.out.println("if I ="+ temp);
 
-                                listOfUsers.remove(index);
+                                        listOfUsers.remove(temp);
+                                        break;
+                                    }
+                                }
+                                break;
 
-                                //this.stop();
+                            case GET_USER_ID_USER_NAME:
 
+                                int id11 = Integer.parseInt(element.getElementsByTagName("userId").item(0).getChildNodes().item(0).getNodeValue());
+
+                                String name11 = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
+
+                                setThisUserId(id11);
+
+                                setThisUserName(name11);
                         }
                     }
                     view.setUsers(listOfUsers);
@@ -156,13 +171,12 @@ public class Model  {
 
         }catch (ConnectException e){
             view.showMessageDialog("Нет подключения, пожалуйста, попробуйте позже.");
-
         }
     }
 
-    public void sendMessageToServer(Message message,View view) throws IOException{
+    public void sendMessageToServer(Message message, String autor, View view) throws IOException{
 
-        Transfer.sendMessage(message, out);
+        Transfer.sendMessage(message, autor,  out);
     }
 
     public void sendNewUserToServer(String nameOfUser,View view) throws IOException{
@@ -224,7 +238,6 @@ public class Model  {
     public int getThisUserId(){
         return thisUserId;
     }
-
 
     public void closeStreams() throws IOException{
 

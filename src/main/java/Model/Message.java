@@ -34,17 +34,4 @@ public class Message implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
-
-    public String toString(){
-        LOG.debug("Message toString used.");
-
-        return "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                "<data>" +
-                    "<values>" +
-                        "<id>" + 5 + "</id>" +
-                        "<message>"+text +"</message>" +
-                        "<user>"+ author.getUser_Name() +"</user>" +
-                    "</values>" +
-                "</data>";
-    }
 }

@@ -34,7 +34,7 @@ public class SendButtonListener implements ActionListener {
 
             } else {
 
-                model.sendMessageToServer(model.createMessage(message, model.getThisUserName()), view);
+                model.sendMessageToServer(model.createMessage(message, model.getThisUserName()), model.getThisUserName(), view);
                 LOG.debug("Successfully.");
             }
             view.cleanField();

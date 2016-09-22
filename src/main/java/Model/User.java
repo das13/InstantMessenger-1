@@ -15,8 +15,10 @@ public class User {
     private int id;
 
     public User(String user_Name, int id) {
+
         this.user_Name = user_Name;
         this.id = id;
+
         LOG.info("User created");
     }
 
@@ -36,17 +38,4 @@ public class User {
         this.id = id;
     }
 
-    public String toString(){
-        LOG.debug("User toString used.");
-
-        return "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                "<data>" +
-                    "<values>" +
-                         "<id>"+ 4 +"</id>" +
-                         "<message></message>" +
-                         "<user>"+ user_Name +"</user>" +
-                         "<userId></userId>"+
-                    "</values>" +
-                "</data>";
-    }
 }
