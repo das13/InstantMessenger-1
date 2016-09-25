@@ -34,7 +34,7 @@ public class Controller {
             model.connectToServer();
             LOG.info("Successfully.");
         } catch (IOException e) {
-            LOG.error("IOException: Can't connect with server "+ e);
+            LOG.error("IOException: Can't connect with server ", e);
         }
         LOG.info("Controller created.");
     }

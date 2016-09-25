@@ -39,7 +39,7 @@ public class SendButtonListener implements ActionListener {
             }
             view.cleanField();
         } catch (IOException e1) {
-            LOG.error("IOException: Can't send message "+ e1);
+            LOG.error("IOException: Can't send message ", e1);
         }
     }
 }

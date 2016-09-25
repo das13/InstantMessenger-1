@@ -2,7 +2,6 @@ package Model;
 
 import View.View;
 import org.apache.log4j.Logger;
-import org.apache.log4j.varia.StringMatchFilter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -14,7 +13,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.net.ConnectException;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -62,7 +60,7 @@ public class Model  {
                     try {
                         builder = f.newDocumentBuilder();
                     } catch (ParserConfigurationException e) {
-                        LOG.error("ParserConfigurationException: "+ e);
+                        LOG.error("ParserConfigurationException: ", e);
                     }
 
                     String xml = in.readUTF();
@@ -143,11 +141,11 @@ public class Model  {
                     view.setUsers(listOfUsers);
 
                 } catch (SAXException e) {
-                    LOG.error("SAXException: Can't send new user "+ e);
+                    LOG.error("SAXException: Can't send new user ", e);
                 } catch (UnsupportedEncodingException e) {
-                    LOG.error("UnsupportedEncodingException: Can't send new user "+ e);
+                    LOG.error("UnsupportedEncodingException: Can't send new user ", e);
                 } catch (IOException e) {
-                    LOG.error("IOException: Can't send new user "+ e);
+                    LOG.error("IOException: Can't send new user ", e);
                 }
             }}};
 
@@ -171,6 +169,9 @@ public class Model  {
             workWithOneUser.start();
 
         }catch (ConnectException e){
+
+            LOG.error("No connection with server!", e);
+
             view.showMessageDialog("Нет подключения, пожалуйста, попробуйте позже.");
         }
     }
@@ -222,9 +223,9 @@ public class Model  {
             property.setProperty("UserName",name);
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LOG.error("FileNotFoundException: " ,e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("IOException: " ,e);
         }
     }
 

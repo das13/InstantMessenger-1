@@ -52,7 +52,7 @@ public class AddNewUserButtonListener implements ActionListener {
                     view.closeJFrame();
                     LOG.debug("Successfully.");
                 } catch (IOException e1) {
-                    LOG.error("IOException: Can't send new user "+ e1);
+                    LOG.error("IOException: Can't send new user ", e1);
                 }
             }
     }
