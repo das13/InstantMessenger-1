@@ -243,11 +243,13 @@ public class Model  {
 
         LOG.info("Close the streams.");
 
+
+
         s.close();
 
         in.close();
         out.close();
 
-       workWithOneUser.stop();
+        workWithOneUser.interrupt();
     }
 }
