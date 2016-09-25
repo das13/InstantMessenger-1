@@ -53,6 +53,8 @@ public class Model  {
 
             while (true){
 
+                ArrayList<User> tempUserList = new ArrayList<User>();
+
                 try {
                     DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
                     f.setValidating(false);
@@ -82,12 +84,6 @@ public class Model  {
 
                                 String name = element.getElementsByTagName("user").item(0).getChildNodes().item(0).getNodeValue();
 
-                                int idOfUser = Integer.parseInt(element.getElementsByTagName("userId").item(0).getChildNodes().item(0).getNodeValue());
-
-                                User tempUser = new User(name, idOfUser);
-
-                                addUserToList(tempUser);
-
                                 view.notificateFromNewUser("У нас новый пользователь - " + name);
 
                                 break;
@@ -108,7 +104,9 @@ public class Model  {
 
                                 User user7 = new User(name7, idOfUser7);
 
-                                listOfUsers.add(user7);
+                                tempUserList.add(user7);
+
+                                listOfUsers = tempUserList;
 
                                 break;
 
