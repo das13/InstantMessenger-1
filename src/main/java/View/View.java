@@ -57,7 +57,7 @@ public class View {
     }
 
     public void showMessageDialog(String s){
-        instantMessenger.noConnectionJFrame();
+        instantMessenger.noConnectionJFrame(s);
     }
 
     public void closeJFrame(){

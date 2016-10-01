@@ -34,16 +34,14 @@ public class SendMessageKeyPressedListener implements KeyListener {
 
             String message = view.getMessage();
 
-            if (message.length() == 0) {
-
-            } else {
+            if (message.length() != 0) {
 
                 try {
-                    model.sendMessageToServer(model.createMessage(message, model.getThisUserName()),model.getThisUserName(), view);
+                    model.sendMessageToServer(model.createMessage(message, model.getThisUserName()), model.getThisUserName(), view);
                 } catch (IOException e1) {
-                    LOG.error("IOException: Can't send message. ", e1);
+                    e1.printStackTrace();
                 }
-                LOG.info("Successfully.");
+                LOG.debug("Successfully.");
             }
             view.cleanField();
         }

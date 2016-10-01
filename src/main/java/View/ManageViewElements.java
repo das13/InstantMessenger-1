@@ -107,7 +107,7 @@ public class ManageViewElements extends JFrame {
         addNewUserJFrame.setLocationRelativeTo(null);
     }
 
-    public void noConnectionJFrame(){
+    public void noConnectionJFrame(String s){
 
         noConnectionJFrame.setSize(325, 90);
         noConnectionJFrame.setLayout(new FlowLayout());
@@ -115,7 +115,7 @@ public class ManageViewElements extends JFrame {
         NoConnectionWindowsListener windowsListener = new NoConnectionWindowsListener();
         noConnectionJFrame.addWindowListener(windowsListener);
 
-        JLabel textMessage = new JLabel("Нет поключения,  пожалуйста,  попробуйте позже.");
+        JLabel textMessage = new JLabel(s);
 
         noConnectionJFrame.add(textMessage);
         noConnectionJFrame.add(exit);

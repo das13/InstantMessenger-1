@@ -30,9 +30,7 @@ public class SendButtonListener implements ActionListener {
 
             String message = view.getMessage();
 
-            if (message.length() == 0) {
-
-            } else {
+            if (message.length() != 0) {
 
                 model.sendMessageToServer(model.createMessage(message, model.getThisUserName()), model.getThisUserName(), view);
                 LOG.debug("Successfully.");

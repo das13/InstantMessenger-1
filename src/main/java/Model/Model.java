@@ -155,9 +155,10 @@ public class Model  {
         try{
             fin = new FileInputStream("src/main/resources/config.properties");
             property.load(fin);
-
             int PORT  = Integer.parseInt(property.getProperty("PORT"));
+
             String addres = property.getProperty("Address");
+
 
             s = new Socket(addres,PORT);
 
@@ -166,10 +167,17 @@ public class Model  {
 
             workWithOneUser.start();
 
-        }catch (ConnectException e){
+        }catch (NumberFormatException e){
+
+            LOG.error("Error with config.properties", e);
+            view.showMessageDialog("Ошибка в файле конфигурации!");
+        }catch (NullPointerException e){
+
+            LOG.error("Error with config.properties", e);
+            view.showMessageDialog("Ошибка в файле конфигурации!");
+        } catch (ConnectException e){
 
             LOG.error("No connection with server!", e);
-
             view.showMessageDialog("Нет подключения, пожалуйста, попробуйте позже.");
         }
     }
