@@ -159,6 +159,9 @@ public class Model  {
 
             String addres = property.getProperty("Address");
 
+            if (addres.length() == 0){
+                view.showMessageDialog("Ошибка в файле конфигурации!");
+            }
 
             s = new Socket(addres,PORT);
 
